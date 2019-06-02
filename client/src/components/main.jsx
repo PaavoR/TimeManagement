@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import Register from './register';
 import '../styles/main.css';
 import "typeface-open-sans";
 
+import Notification from './notification';
+import Register from './register';
+
 class Main extends Component {
+    handleNotification(success){
+        console.log(success);
+    }
+
     render(){
         return(
             <div>
-                <Register />
+                <Notification />
+                <Register onRegister={this.handleNotification} />
             </div>
         );
     }
