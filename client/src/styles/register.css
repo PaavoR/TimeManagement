@@ -1,0 +1,17 @@
+.register{
+    position: absolute;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #fff;
+}
+
+h1{
+    position: relative;
+    margin: 10px 0 10px 0;
+    font-family: "open sans";
+    font-weight: 300;
+}
