@@ -41,7 +41,7 @@ class Register extends Component {
         };
         const body = JSON.stringify(newUser);
         const res = await axios.post("/api/user/register", body, config);
-        console.log(res.data);
+        this.props.onRegister(res.data, "Testi onnistunut");
       } catch (err) {
         console.error(err.response.data);
       }

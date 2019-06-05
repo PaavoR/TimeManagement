@@ -4,7 +4,7 @@ import '../styles/notification.css';
 class Notification extends Component {
     render(){
         return(
-            <div className="notification success">Rekisteröiminen onnistui</div>
+            <div className={"notification success " + this.props.showNotification}>Rekisteröiminen onnistui</div>
         );
     }
 }

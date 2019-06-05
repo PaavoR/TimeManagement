@@ -6,6 +6,8 @@
     height: 50px;
     text-align: center;
     line-height: 50px;
+    opacity: 0;
+    transition: 0.5s all ease-out;
     font-size: 16px;
     color: #eee;
 }
@@ -16,5 +18,9 @@
 
 .notification.fail{
     background-color:rgb(255, 0, 0, 0.9);
+}
+
+.notification.true{
+    opacity: 1;
 }
 
