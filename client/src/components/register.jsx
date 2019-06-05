@@ -1,25 +1,108 @@
-import React, { Component } from 'react';
-import '../styles/register.css';
+import React, { Component } from "react";
+import "../styles/register.css";
+
+import axios from "axios";
 
 class Register extends Component {
-    getSuccess(){
-        return true;
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      password2: ""
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-    render(){
-        return(
-            <div className="register">
-                <h1>Rekisteröidy</h1>
-                <form>
-                    <input type="text" placeholder="Sähköpostiosoite" className="text" />
-                    <input type="text" placeholder="Nimi" className="text" />
-                    <input type="password" placeholder="Salasana" className="text" />
-                    <input type="password" placeholder="Salasana uudelleen" className="text" />
-                    <input type="button" value="Rekisteröidy" className="submit" onClick={() => this.props.onRegister(this.getSuccess())}/>
-                </form>
-            </div>
-        );
+  getSuccess() {
+    return true;
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state);
+    const { name, email, password, password2 } = this.state;
+    if (password !== password2) {
+      //TODO alert tähän
+      alert("Salasanat eivät täsmää");
+    } else {
+      try {
+        const newUser = {
+          name,
+          email,
+          password
+        };
+        const config = {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        };
+        const body = JSON.stringify(newUser);
+        const res = await axios.post("/api/user/register", body, config);
+        console.log(res.data);
+      } catch (err) {
+        console.error(err.response.data);
+      }
     }
+  }
+  handleChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    return (
+      <div className="register">
+        <h1>Rekisteröidy</h1>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            placeholder="Sähköpostiosoite"
+            name="email"
+            className="text"
+            value={this.state.email}
+            onChange={this.handleChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Nimi"
+            className="text"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleChange}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Salasana"
+            className="text"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            required
+            minLength="6"
+          />
+          <input
+            type="password"
+            placeholder="Salasana uudelleen"
+            className="text"
+            name="password2"
+            value={this.state.password2}
+            onChange={this.handleChange}
+            required
+            minLength="6"
+          />
+          <input type="submit" value="Submit" className="submit" />
+        </form>
+      </div>
+    );
+  }
 }
 
 export default Register;
