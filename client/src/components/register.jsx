@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/register.css";
+import "../styles/form.css";
 
 import axios from "axios";
 
@@ -41,7 +41,7 @@ class Register extends Component {
         };
         const body = JSON.stringify(newUser);
         const res = await axios.post("/api/user/register", body, config);
-        this.props.onRegister(res.data, "Testi onnistunut");
+        this.props.onRegister(res.data, "login");
       } catch (err) {
         console.error(err.response.data);
       }
@@ -100,6 +100,7 @@ class Register extends Component {
           />
           <input type="submit" value="Submit" className="submit" />
         </form>
+        <a href="/login">Onko sinulla jo tunnus? Kirjaudu sisään</a>
       </div>
     );
   }

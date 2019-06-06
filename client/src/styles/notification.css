@@ -8,6 +8,7 @@
     line-height: 50px;
     opacity: 0;
     transition: 0.5s all ease-out;
+    pointer-events: none;
     font-size: 16px;
     color: #eee;
 }
