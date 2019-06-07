@@ -1,12 +1,19 @@
 import React, { Component } from "react";
+import "../styles/form.css";
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
-    return <h1>Login</h1>;
+    return (
+      <div className="login">
+        <h1>Kirjaudu</h1>
+        <form>
+          <input type="text" className="text" placeholder="Sähköpostiosoite" />
+          <input type="password" className="text" placeholder="Salasana" />
+          <input type="submit" className="submit" value="Kirjaudu" />
+        </form>
+        <a href="/register">Tarvitsetko tunnuksen? Rekisteröidy</a>
+      </div>
+    );
   }
 }
 

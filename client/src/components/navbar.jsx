@@ -12,7 +12,7 @@ class Navbar extends Component {
   }
   render() {
     return (
-      <nav className="navbar">
+      <div className="navbar">
         <h1>
           <a href="dashboard.html">
             <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
@@ -20,16 +20,16 @@ class Navbar extends Component {
         </h1>
         <ul>
           <li>
-            <a href="profile.html">Profile</a>
+            <a href="/profile">Profiili</a>
           </li>
           <li>
-            <a href="register.html">Register</a>
+            <a href="/register">Rekisteröidy</a>
           </li>
           <li>
-            <a href="login.html">Login</a>
+            <a href="/login">Kirjaudu</a>
           </li>
         </ul>
-      </nav>
+      </div>
     );
   }
 }
