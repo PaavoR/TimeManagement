@@ -1,20 +1,20 @@
 [
   {
-    "name": "Work"
+    "name": "Työ"
   },
   {
-    "name": "School"
+    "name": "Koulu"
   },
   {
-    "name": "Sleep"
+    "name": "Uni"
   },
   {
-    "name": "Holiday"
+    "name": "Loma"
   },
   {
-    "name": "Free time"
+    "name": "Vapaa-aika"
   },
   {
-    "name": "Hobbies"
+    "name": "Harrastukset"
   }
 ]
