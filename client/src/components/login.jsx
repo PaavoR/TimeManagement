@@ -9,7 +9,7 @@ class Login extends Component {
         <form>
           <input type="text" className="text" placeholder="Sähköpostiosoite" />
           <input type="password" className="text" placeholder="Salasana" />
-          <input type="submit" className="submit" value="Kirjaudu" />
+          <input type="button" className="submit" value="Kirjaudu" onClick={() => this.props.onLogin("time")}/>
         </form>
         <a href="/register">Tarvitsetko tunnuksen? Rekisteröidy</a>
       </div>

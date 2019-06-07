@@ -9,22 +9,24 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Notification from "./notification";
 import Register from "./register";
 import Login from "./login";
+import Time from "./time";
+import NotFound from "./notFound";
 import Navbar from "./navbar";
 
 class Main extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      registerSuccessful: false,
       redirect: false,
       redirectTarget: "",
-      showNotification: false
+      showNotification: false,
+      loggedIn: false
     };
   }
 
   handleRegister(data, target) {
     this.setRedirect(target);    
-    this.setState({ registerSuccessful: true });
     this.setState({ showNotification: true });
     setTimeout(
       function() {
@@ -34,11 +36,22 @@ class Main extends Component {
     );
   }
 
-  setRedirect(target){
+  handleLogin(target) {
+    this.setRedirect(target);    
+    this.setState({ showNotification: true, loggedIn: true });
+    setTimeout(
+      function() {
+        this.setState({ showNotification: false });
+      }.bind(this),
+      3000
+    );
+  }
+
+  setRedirect(target) { 
     this.setState({ redirect: true, redirectTarget: target });
   }
 
-  renderRedirect(){
+  doRedirect() {
     if(this.state.redirect){
       this.setState({redirect: false, redirectTarget: ""});
       return <Redirect to={'/' + this.state.redirectTarget } />
@@ -46,22 +59,46 @@ class Main extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Navbar />
-        <Notification showNotification={this.state.showNotification} />
-        <Router>
-          <Switch>
-            <Route path="/login" component={Login}></Route>
-            <Route 
-              path="/register" 
-              component={() => <Register onRegister={this.handleRegister.bind(this)} /> }
-            />
-          </Switch>
-          {this.renderRedirect()}
-        </Router>
-      </div>
-    );
+    if(this.state.loggedIn) {
+      return (
+        <div>
+          <Navbar loggedIn={this.state.loggedIn}/>
+          <Notification showNotification={this.state.showNotification} />
+          <Router>
+            <Switch>
+              <Route 
+                path="/time" 
+                component={Time}>
+              </Route>
+              <Route component={NotFound} />
+            </Switch>
+            {this.doRedirect()}
+          </Router>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          <Navbar loggedIn={this.state.loggedIn}/>
+          <Notification showNotification={this.state.showNotification} />
+          <Router>
+            <Switch>    
+              <Route 
+                path="/login" 
+                component={() => <Login onLogin={this.handleLogin.bind(this)} /> }>
+              </Route>
+              <Route 
+                path="/register" 
+                component={() => <Register onRegister={this.handleRegister.bind(this)} /> }>
+              </Route>
+              <Route component={NotFound} />
+            </Switch>
+            {this.doRedirect()}
+          </Router>
+        </div>
+      );
+    }
   }
 }
 
