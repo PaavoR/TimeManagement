@@ -5,7 +5,12 @@ import "typeface-open-sans";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import Notification from "./notification";
 import Register from "./register";
 import Login from "./login";
@@ -23,7 +28,7 @@ class Main extends Component {
   }
 
   handleRegister(data, target) {
-    this.setRedirect(target);    
+    this.setRedirect(target);
     this.setState({ registerSuccessful: true });
     this.setState({ showNotification: true });
     setTimeout(
@@ -34,14 +39,14 @@ class Main extends Component {
     );
   }
 
-  setRedirect(target){
+  setRedirect(target) {
     this.setState({ redirect: true, redirectTarget: target });
   }
 
-  renderRedirect(){
-    if(this.state.redirect){
-      this.setState({redirect: false, redirectTarget: ""});
-      return <Redirect to={'/' + this.state.redirectTarget } />
+  renderRedirect() {
+    if (this.state.redirect) {
+      this.setState({ redirect: false, redirectTarget: "" });
+      return <Redirect to={"/" + this.state.redirectTarget} />;
     }
   }
 
@@ -52,10 +57,12 @@ class Main extends Component {
         <Notification showNotification={this.state.showNotification} />
         <Router>
           <Switch>
-            <Route path="/login" component={Login}></Route>
-            <Route 
-              path="/register" 
-              component={() => <Register onRegister={this.handleRegister.bind(this)} /> }
+            <Route path="/login" component={Login} />
+            <Route
+              path="/register"
+              component={() => (
+                <Register onRegister={this.handleRegister.bind(this)} />
+              )}
             />
           </Switch>
           {this.renderRedirect()}
