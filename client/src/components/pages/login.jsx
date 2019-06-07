@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import "../styles/form.css";
+import "../../styles/form.css";
+import { setToStorage } from  "../../functions/storage";
 
 class Login extends Component {
+  handleClick() {
+    this.props.onLogin("time");
+    setToStorage("loggedIn", "true");
+  }
+
   render() {
     return (
       <div className="login">
@@ -9,7 +15,7 @@ class Login extends Component {
         <form>
           <input type="text" className="text" placeholder="Sähköpostiosoite" />
           <input type="password" className="text" placeholder="Salasana" />
-          <input type="button" className="submit" value="Kirjaudu" onClick={() => this.props.onLogin("time")}/>
+          <input type="button" className="submit" value="Kirjaudu" onClick={this.handleClick.bind(this)}/>
         </form>
         <a href="/register">Tarvitsetko tunnuksen? Rekisteröidy</a>
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "../styles/form.css";
-
+import "../../styles/form.css";
 import axios from "axios";
+import Notification from "../notification";
 
 class Register extends Component {
   constructor(props) {
@@ -101,6 +101,8 @@ class Register extends Component {
           <input type="submit" value="Submit" className="submit" />
         </form>
         <a href="/login">Onko sinulla jo tunnus? Kirjaudu sisään</a>
+        
+        <Notification />
       </div>
     );
   }

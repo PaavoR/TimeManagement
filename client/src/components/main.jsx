@@ -11,10 +11,15 @@ import {
   Switch,
   Redirect
 } from "react-router-dom";
-import Notification from "./notification";
-import Register from "./register";
-import Login from "./login";
-import Time from "./time";
+
+import { getFromStorage } from "../functions/storage";
+
+import Register from "./pages/register";
+import Login from "./pages/login";
+import Time from "./pages/time";
+import Results from "./pages/results";
+import Profile from "./pages/profile";
+
 import NotFound from "./notFound";
 import Navbar from "./navbar";
 
@@ -25,31 +30,24 @@ class Main extends Component {
     this.state = {
       redirect: false,
       redirectTarget: "",
-      showNotification: false,
       loggedIn: false
     };
   }
 
+  componentDidMount() {
+    const loggedIn = getFromStorage("loggedIn");
+    if(loggedIn) {
+      this.setState({ loggedIn: loggedIn });
+    }
+  }
+
   handleRegister(data, target) {
     this.setRedirect(target);
-    this.setState({ showNotification: true });
-    setTimeout(
-      function() {
-        this.setState({ showNotification: false });
-      }.bind(this),
-      3000
-    );
   }
 
   handleLogin(target) {
     this.setRedirect(target);
-    this.setState({ showNotification: true, loggedIn: true });
-    setTimeout(
-      function() {
-        this.setState({ showNotification: false });
-      }.bind(this),
-      3000
-    );
+    this.setState({ loggedIn: true });
   }
 
   setRedirect(target) {
@@ -68,10 +66,20 @@ class Main extends Component {
       return (
         <div>
           <Navbar loggedIn={this.state.loggedIn} />
-          <Notification showNotification={this.state.showNotification} />
           <Router>
             <Switch>
-              <Route path="/time" component={Time} />
+              <Route 
+                path="/time" 
+                component={Time}
+              />
+              <Route
+                path="/results"
+                component={Results}
+              />
+              <Route
+                path="/profile"
+                component={Profile}
+              />
               <Route component={NotFound} />
             </Switch>
             {this.doRedirect()}
@@ -82,7 +90,6 @@ class Main extends Component {
       return (
         <div>
           <Navbar loggedIn={this.state.loggedIn} />
-          <Notification showNotification={this.state.showNotification} />
           <Router>
             <Switch>
               <Route
@@ -98,6 +105,7 @@ class Main extends Component {
                 )}
               />
               <Route component={NotFound} />
+
             </Switch>
             {this.doRedirect()}
           </Router>

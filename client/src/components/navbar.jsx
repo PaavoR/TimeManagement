@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
+import { getFromStorage, removeFromStorage } from "../functions/storage";
+
 import "../styles/navbar.css";
 
 class Navbar extends Component {
@@ -23,6 +25,9 @@ class Navbar extends Component {
           </li>
           <li>
             <a href="/profile">Profiili</a>
+          </li>
+          <li>
+            <a onClick={ () => removeFromStorage("loggedIn") } href="/login">Kirjaudu ulos</a>
           </li>
         </ul>
       );
@@ -45,7 +50,7 @@ class Navbar extends Component {
     return (
       <div className="navbar">
         <h1>
-          <a href="/login">
+          <a href={ this.props.loggedIn ? "/time" : "/login" }>
             <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
           </a>
         </h1>
