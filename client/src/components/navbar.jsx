@@ -10,25 +10,46 @@ class Navbar extends Component {
     super(props);
     this.state = {};
   }
-  render() {
-    return (
-      <div className="navbar">
-        <h1>
-          <a href="dashboard.html">
-            <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
-          </a>
-        </h1>
-        <ul>
+
+  getNavbar(loggedIn) {
+    if(loggedIn) {
+      return(
+        <ul className="loggedin">
+          <li>
+            <a href="/time">Ajanotto</a>
+          </li>
+          <li>
+            <a href="/results">Tulokset</a>
+          </li>
           <li>
             <a href="/profile">Profiili</a>
           </li>
+        </ul>
+      );
+    }
+    else {
+      return(
+        <ul className="loggedoff">
           <li>
-            <a href="/register">Rekisteröidy</a>
+              <a href="/register">Rekisteröidy</a>
           </li>
           <li>
             <a href="/login">Kirjaudu</a>
           </li>
         </ul>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className="navbar">
+        <h1>
+          <a href="/login">
+            <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
+          </a>
+        </h1>
+        { this.getNavbar(this.props.loggedIn) }
       </div>
     );
   }

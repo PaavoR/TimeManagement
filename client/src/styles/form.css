@@ -50,6 +50,5 @@ input {
 }
 
 a {
-    text-decoration: underline;
-    color: #000;
+    text-decoration: none;
 }
