@@ -5,7 +5,7 @@ import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { getFromStorage, removeFromStorage } from "../functions/storage";
 
-import "../styles/navbar.css";
+import "../styles/navbar.scss";
 
 class Navbar extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Navbar extends Component {
       return(
         <ul className="loggedin">
           <li>
-            <a href="/time">Ajanotto</a>
+            <a href="/time">Ajanotto / Kirjaus</a>
           </li>
           <li>
             <a href="/results">Tulokset</a>

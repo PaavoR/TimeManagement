@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import "../styles/main.css";
+import "../styles/main.scss";
 import "typeface-open-sans";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 import {
   BrowserRouter as Router,
@@ -82,7 +79,7 @@ class Main extends Component {
               />
               <Route component={NotFound} />
             </Switch>
-            {this.doRedirect()}
+            { this.doRedirect() }
           </Router>
         </div>
       );
@@ -105,9 +102,8 @@ class Main extends Component {
                 )}
               />
               <Route component={NotFound} />
-
             </Switch>
-            {this.doRedirect()}
+            { this.doRedirect() }
           </Router>
         </div>
       );

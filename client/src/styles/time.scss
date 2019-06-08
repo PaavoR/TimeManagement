@@ -1,0 +1,39 @@
+.time {
+    position: absolute;
+    width: 500px;
+    padding: 20px 0 0 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: #fff;
+    color: #333;
+
+    .time h1 {
+        position: relative;
+        margin: 20px 0 20px 0;
+        font-family: "open sans";
+        font-weight: 300;
+    }
+    
+    a {
+        color: #333;
+        .icon {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            padding: 30px 0 20px 0;
+            text-align: center;
+    
+            &:hover {
+                background-color: #eee;
+            }
+        }
+    }
+
+    .svg-inline--fa {
+        width: 75px;
+        height: 75px;
+    }
+}

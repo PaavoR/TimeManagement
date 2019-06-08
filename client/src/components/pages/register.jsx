@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../../styles/form.css";
+import "../../styles/form.scss";
 import axios from "axios";
 import Notification from "../notification";
 

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import "../../styles/profile.css";
+import "../../styles/profile.scss";
 
 class Profile extends Component {
     render() {
         return (
             <div className="profile">
-                <h1>Profile</h1>
+                <h1>Profiili</h1>
             </div>
         );
     }

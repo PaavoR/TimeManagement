@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../../styles/form.css";
+import "../../styles/form.scss";
 import { setToStorage } from  "../../functions/storage";
 
 class Login extends Component {
