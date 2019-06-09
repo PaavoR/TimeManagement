@@ -1,11 +1,14 @@
 import { setToStorage } from "../functions/storage";
+import axios from "axios";
+
 export default class AuthService {
   constructor() {
     this.register = this.register.bind(this);
   }
   async register(credentials) {
     const { name, email, password, password2 } = credentials;
-    if (password !== password2) throw [{ msg: "Salasanat eivät täsmää!" }];
+    if (password !== password2)
+      throw { errors: [{ msg: "Salasanat eivät täsmää!" }] };
     try {
       const newUser = {
         name,
@@ -19,13 +22,21 @@ export default class AuthService {
       };
       const body = JSON.stringify(newUser);
       const res = await axios.post("/api/user/register", body, config);
-      if (res.token) {
-        setToStorage("token", res.token);
+      const { data } = await res;
+      if (data.token) {
+        console.log(data);
+        setToStorage("token", data.token);
+        return true;
       }
-      return res;
+      return false;
     } catch (err) {
-      console.error(err.response.data);
-      throw err;
+      if (err.response) {
+        const errors = await err.response.data;
+        console.log(errors);
+        throw errors;
+      } else {
+        throw err;
+      }
     }
   }
 }

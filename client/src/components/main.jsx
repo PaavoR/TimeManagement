@@ -33,13 +33,14 @@ class Main extends Component {
 
   componentDidMount() {
     const loggedIn = getFromStorage("loggedIn");
-    if(loggedIn) {
+    if (loggedIn) {
       this.setState({ loggedIn: loggedIn });
     }
   }
 
-  handleRegister(data, target) {
+  handleRegister(target) {
     this.setRedirect(target);
+    this.setState({ loggedIn: true });
   }
 
   handleLogin(target) {
@@ -65,21 +66,12 @@ class Main extends Component {
           <Navbar loggedIn={this.state.loggedIn} />
           <Router>
             <Switch>
-              <Route 
-                path="/time" 
-                component={Time}
-              />
-              <Route
-                path="/results"
-                component={Results}
-              />
-              <Route
-                path="/profile"
-                component={Profile}
-              />
+              <Route path="/time" component={Time} />
+              <Route path="/results" component={Results} />
+              <Route path="/profile" component={Profile} />
               <Route component={NotFound} />
             </Switch>
-            { this.doRedirect() }
+            {this.doRedirect()}
           </Router>
         </div>
       );
@@ -103,7 +95,7 @@ class Main extends Component {
               />
               <Route component={NotFound} />
             </Switch>
-            { this.doRedirect() }
+            {this.doRedirect()}
           </Router>
         </div>
       );
