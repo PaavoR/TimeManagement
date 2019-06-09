@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../../styles/form.scss";
 import axios from "axios";
 import Notification from "../notification";
+import AuthService from "../../services/AuthService";
 
 class Register extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Register extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.AuthService = new AuthService();
   }
 
   getSuccess() {
@@ -22,29 +24,9 @@ class Register extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
-    const { name, email, password, password2 } = this.state;
-    if (password !== password2) {
-      //TODO alert tähän
-      alert("Salasanat eivät täsmää");
-    } else {
-      try {
-        const newUser = {
-          name,
-          email,
-          password
-        };
-        const config = {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        };
-        const body = JSON.stringify(newUser);
-        const res = await axios.post("/api/user/register", body, config);
-        this.props.onRegister(res.data, "login");
-      } catch (err) {
-        console.error(err.response.data);
-      }
+    try {
+    } catch (error) {
+      console.log(error);
     }
   }
   handleChange(e) {
@@ -101,7 +83,7 @@ class Register extends Component {
           <input type="submit" value="Submit" className="submit" />
         </form>
         <a href="/login">Onko sinulla jo tunnus? Kirjaudu sisään</a>
-        
+
         <Notification />
       </div>
     );
