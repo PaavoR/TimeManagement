@@ -1,9 +1,10 @@
-import { setToStorage } from "../functions/storage";
+import { setToStorage, removeFromStorage } from "../functions/storage";
 import axios from "axios";
 
 export default class AuthService {
   constructor() {
     this.register = this.register.bind(this);
+    this.login = this.login.bind(this);
   }
   async register(credentials) {
     const { name, email, password, password2 } = credentials;
@@ -38,5 +39,42 @@ export default class AuthService {
         throw err;
       }
     }
+  }
+
+  async login(credentials) {
+    const { email, password } = credentials;
+    try {
+      const loginUser = {
+        email,
+        password
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      const body = JSON.stringify(loginUser);
+      const res = await axios.post("/api/user/login", body, config);
+      const { data } = await res;
+      if (data.token) {
+        setToStorage("token", data.token);
+        return true;
+      }
+      return false;
+    } catch (err) {
+      if (err.response) {
+        const errors = await err.response.data;
+        console.log(errors);
+        throw errors;
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  async logoff() {
+    removeFromStorage("token");
+    return true;
   }
 }
