@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator/check");
 const User = require("../../models/User");
+const Task = require("../../models/Task");
 const auth = require("../../middleware/auth");
 
 // @route   POST api/user/register
@@ -147,7 +148,7 @@ router.get("/", auth, async (req, res) => {
 router.delete("/delete", auth, async (req, res) => {
   try {
     const deleted = await User.deleteOne({ _id: req.user.id });
-    // TODO Poista myös Userin Taskit
+    await Task.deleteMany({ user: req.user.id });
     if (deleted.deletedCount == 1) {
       return res.status(200).json({ msg: "user deleted" });
     } else if (deleted.deletedCount == 0) {
@@ -157,7 +158,7 @@ router.delete("/delete", auth, async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).json({ msg: "Server error" });
   }
 });
 
