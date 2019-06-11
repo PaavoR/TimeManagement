@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-import { getFromStorage } from "../functions/storage";
+import { getFromStorage, removeFromStorage } from "../functions/storage";
 
 import Register from "./pages/register";
 import Login from "./pages/login";
@@ -48,6 +48,12 @@ class Main extends Component {
     this.setState({ loggedIn: true });
   }
 
+  handleError(target) {
+    removeFromStorage("token");
+    this.setState({ loggedIn: false });
+    this.setRedirect(target);
+  }
+
   setRedirect(target) {
     this.setState({ redirect: true, redirectTarget: target });
   }
@@ -68,7 +74,12 @@ class Main extends Component {
             <Switch>
               <Route path="/time" component={Time} />
               <Route path="/results" component={Results} />
-              <Route path="/profile" component={Profile} />
+              <Route
+                path="/profile"
+                component={() => (
+                  <Profile onError={this.handleError.bind(this)} />
+                )}
+              />
               <Route component={NotFound} />
             </Switch>
             {this.doRedirect()}

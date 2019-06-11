@@ -1,7 +1,7 @@
 import { getFromStorage } from "../functions/storage";
 import axios from "axios";
 
-export default class ProfileService {
+export default class UserService {
   constructor() {}
   async getUserData() {
     const token = getFromStorage("token");
@@ -16,6 +16,7 @@ export default class ProfileService {
       };
       const res = await axios.get("/api/user/", config);
       const { data } = res;
+      console.log(res);
       return data;
     } catch (err) {
       if (err.response) {
