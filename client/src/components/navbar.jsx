@@ -14,8 +14,8 @@ class Navbar extends Component {
   }
 
   getNavbar(loggedIn) {
-    if(loggedIn) {
-      return(
+    if (loggedIn) {
+      return (
         <ul className="loggedin">
           <li>
             <a href="/time">Ajanotto / Kirjaus</a>
@@ -27,16 +27,17 @@ class Navbar extends Component {
             <a href="/profile">Profiili</a>
           </li>
           <li>
-            <a onClick={ () => removeFromStorage("loggedIn") } href="/login">Kirjaudu ulos</a>
+            <a onClick={() => removeFromStorage("token")} href="/login">
+              Kirjaudu ulos
+            </a>
           </li>
         </ul>
       );
-    }
-    else {
-      return(
+    } else {
+      return (
         <ul className="loggedoff">
           <li>
-              <a href="/register">Rekisteröidy</a>
+            <a href="/register">Rekisteröidy</a>
           </li>
           <li>
             <a href="/login">Kirjaudu</a>
@@ -50,11 +51,11 @@ class Navbar extends Component {
     return (
       <div className="navbar">
         <h1>
-          <a href={ this.props.loggedIn ? "/time" : "/login" }>
+          <a href={this.props.loggedIn ? "/time" : "/login"}>
             <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
           </a>
         </h1>
-        { this.getNavbar(this.props.loggedIn) }
+        {this.getNavbar(this.props.loggedIn)}
       </div>
     );
   }

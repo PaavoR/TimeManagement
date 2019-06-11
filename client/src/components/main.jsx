@@ -32,9 +32,9 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    const loggedIn = getFromStorage("loggedIn");
+    const loggedIn = getFromStorage("token");
     if (loggedIn) {
-      this.setState({ loggedIn: loggedIn });
+      this.setState({ loggedIn: true });
     }
   }
 
