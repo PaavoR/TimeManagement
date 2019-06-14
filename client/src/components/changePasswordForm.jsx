@@ -54,6 +54,11 @@ class ChangePasswordForm extends Component {
             show: "true",
             text: message,
             type: "success"
+          },
+          formData: {
+            old_password: "",
+            old_password2: "",
+            new_password: ""
           }
         });
       } else {
