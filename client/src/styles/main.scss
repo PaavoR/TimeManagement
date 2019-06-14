@@ -86,3 +86,11 @@ textarea {
 a {
   text-decoration: none;
 }
+
+@media only screen and (max-height: 1000px) {
+  .container {
+    position: absolute;
+    top: 150px;
+    transform: translateX(-50%);
+  }
+}
