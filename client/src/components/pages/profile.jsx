@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../../styles/profile.scss";
 import UserService from "../../services/UserService";
 import { Redirect } from "react-router-dom";
+import ChangePasswordForm from "../changePasswordForm";
 
 class Profile extends Component {
   constructor(props) {
@@ -26,9 +27,16 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile">
-        <h1>Profiili</h1>
-        <p>Nimi: {this.state.name}</p>
-        <p>Sähköposti: {this.state.email}</p>
+        <div className="header">
+          <h1>Profiili</h1>
+        </div>
+        <div className="infobox">
+          <p>Nimi: {this.state.name}</p>
+          <p>Sähköposti: {this.state.email}</p>
+        </div>
+        <div className="changePassword">
+          <ChangePasswordForm />
+        </div>
       </div>
     );
   }

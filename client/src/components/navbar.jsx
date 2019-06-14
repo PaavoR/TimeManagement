@@ -50,12 +50,14 @@ class Navbar extends Component {
   render() {
     return (
       <div className="navbar">
-        <h1>
-          <a href={this.props.loggedIn ? "/time" : "/login"}>
-            <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
-          </a>
-        </h1>
-        {this.getNavbar(this.props.loggedIn)}
+        <nav>
+          <h1>
+            <a href={this.props.loggedIn ? "/time" : "/login"}>
+              <FontAwesomeIcon icon={faCalendarAlt} /> TimeManagement
+            </a>
+          </h1>
+          {this.getNavbar(this.props.loggedIn)}
+        </nav>
       </div>
     );
   }

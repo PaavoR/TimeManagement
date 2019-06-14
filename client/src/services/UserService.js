@@ -28,4 +28,27 @@ export default class UserService {
       }
     }
   }
+  async changePassword(data) {
+    const token = getFromStorage("token");
+    if (!token) {
+      throw { errors: [{ msg: "Tokenia ei löytynyt!" }] };
+    }
+    try {
+      const config = {
+        headers: {
+          "x-auth-token": token
+        }
+      };
+      const res = await axios.put("/api/user/changepassword", data, config);
+      return res;
+    } catch (err) {
+      if (err.response) {
+        const errors = await err.response.data;
+        console.log(errors);
+        throw errors;
+      } else {
+        throw err;
+      }
+    }
+  }
 }

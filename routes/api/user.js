@@ -188,12 +188,16 @@ router.put(
     }
     const { old_password, old_password2, new_password } = req.body;
     if (old_password !== old_password2) {
-      return res.status(400).json({ msg: "Old passwords dont match" });
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "Old passwords dont match" }] });
     }
     let user = await User.findById(req.user.id);
     const isMatch = await bcrypt.compare(old_password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Old passwords dont match" });
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "Old passwords dont match" }] });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -201,7 +205,7 @@ router.put(
     user = await User.findOneAndUpdate(
       { _id: req.user.id },
       { $set: { password: hashpassword } }
-    );
+    ).select("-password");
 
     return res.status(200).json(user);
   }
