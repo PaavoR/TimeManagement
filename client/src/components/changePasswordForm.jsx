@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Notification from "./notification";
 import UserService from "../services/UserService";
-import "../styles/form.scss";
 class ChangePasswordForm extends Component {
   constructor(props) {
     super(props);
