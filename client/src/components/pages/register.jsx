@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../../styles/form.scss";
 
 import Notification from "../notification";
 import AuthService from "../../services/AuthService";
@@ -78,7 +77,7 @@ class Register extends Component {
   }
   render() {
     return (
-      <div className="register">
+      <div className="container register">
         <h1>Rekisteröidy</h1>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -119,7 +118,7 @@ class Register extends Component {
             required
             minLength="6"
           />
-          <input type="submit" value="Submit" className="submit" />
+          <input type="submit" value="Rekisteröidy" className="submit" />
         </form>
         <a href="/login">Onko sinulla jo tunnus? Kirjaudu sisään</a>
 

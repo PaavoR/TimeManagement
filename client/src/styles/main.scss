@@ -5,3 +5,79 @@ body {
 * {
   font-weight: 300;
 }
+
+.container {
+  position: absolute;
+  width: 500px;
+  padding: 20px 0 40px 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #fff;
+}
+
+h1 {
+  position: relative;
+  margin: 20px 0 10px 0;
+  font-family: "open sans";
+  font-weight: 300;
+}
+
+input, select, textarea {
+  width: 390px;
+  height: 40px;
+  margin: 5px 0 5px 0;
+  padding-left: 10px;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  transition: .1s ease-out;
+  background-color:#eee;
+}
+
+
+input.small {
+  width: 185px;
+  margin: 5px;
+}
+
+.text:hover {
+  background-color: #e6e6e6;
+}
+
+.text:focus {
+  padding-left: 12px;
+  width: 388px;
+}
+
+.submit {
+  margin-bottom: 20px;
+  width: 400px;
+  background-color: #3399ff;
+  color: #fff;
+}
+
+.submit:hover {
+  background-color: #0066ff;
+}
+
+select {
+  width: 400px;
+}
+
+textarea {
+  min-width: 390px;
+  max-width: 390px;
+  min-height: 200px;
+  max-height: 200px;
+  padding-top: 10px;
+  font-family: "open sans";
+  font-weight: 400;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}

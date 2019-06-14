@@ -14,6 +14,7 @@ import { getFromStorage, removeFromStorage } from "../functions/storage";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Time from "./pages/time";
+import LogTime from "./pages/log-time";
 import Results from "./pages/results";
 import Profile from "./pages/profile";
 
@@ -73,6 +74,7 @@ class Main extends Component {
           <Router>
             <Switch>
               <Route path="/time" component={Time} />
+              <Route path="/log-time" component={LogTime} />
               <Route path="/results" component={Results} />
               <Route
                 path="/profile"

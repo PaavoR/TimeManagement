@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../../styles/form.scss";
+
 import { setToStorage } from "../../functions/storage";
 import AuthService from "../../services/AuthService";
 import Notification from "../notification";
@@ -84,7 +84,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login">
+      <div className="container login">
         <h1>Kirjaudu</h1>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -103,7 +103,7 @@ class Login extends Component {
             value={this.state.formData.password}
             onChange={this.handleChange}
           />
-          <input type="submit" value="Submit" className="submit" />
+          <input type="submit" value="Kirjaudu" className="submit" />
         </form>
         <a href="/register">Tarvitsetko tunnuksen? Rekisteröidy</a>
         <Notification

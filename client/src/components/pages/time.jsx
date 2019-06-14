@@ -7,7 +7,7 @@ import { faFileSignature, faClock } from "@fortawesome/free-solid-svg-icons";
 class Time extends Component {
     render() {
         return (
-            <div className="time">
+            <div className="container time">
                 <h1>Ajanotto / Kirjaus</h1>
                 <div className="icons">
                     <a href="/log-time">

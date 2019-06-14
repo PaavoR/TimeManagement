@@ -4,7 +4,7 @@ import "../../styles/results.scss";
 class Results extends Component {
     render() { 
         return ( 
-            <div className="results">
+            <div className="container results">
                 <h1>Tulokset</h1>
             </div>
         );
