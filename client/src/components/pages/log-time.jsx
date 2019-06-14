@@ -4,7 +4,7 @@ import "../../styles/log-time.scss";
 class LogTime extends Component {
     render() {
         return(
-            <div class="container log-time">
+            <div className="container log-time">
                 <h1>Kirjaa aika</h1>
                 <form>
                     <input
