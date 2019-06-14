@@ -87,6 +87,10 @@ a {
   text-decoration: none;
 }
 
+hr {
+  width: 85%;
+}
+
 @media only screen and (max-height: 800px) {
   .container {
     position: absolute;
