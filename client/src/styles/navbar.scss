@@ -6,6 +6,8 @@
   height: 100px;
   line-height: 100px;
   border-bottom: 2px solid #fff;
+  z-index: 1;
+  background-color: #0066ff;
 
   h1 {
     margin: 0 0 0 50px;
@@ -36,6 +38,17 @@
           border-bottom: 1px solid #eee;
         }
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .navbar {
+    h1 {
+      font-size: 18px;
+    }
+    ul li {
+      font-size: 16px;
     }
   }
 }

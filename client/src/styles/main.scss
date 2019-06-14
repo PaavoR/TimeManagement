@@ -18,6 +18,12 @@ body {
   background-color: #fff;
 }
 
+.changepasswordForm {
+  background-color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
 h1 {
   position: relative;
   margin: 20px 0 10px 0;
@@ -33,10 +39,9 @@ input, select, textarea {
   border: 0;
   outline: none;
   font-size: 16px;
-  transition: .1s ease-out;
-  background-color:#eee;
+  transition: 0.1s ease-out;
+  background-color: #eee;
 }
-
 
 input.small {
   width: 185px;
@@ -80,4 +85,12 @@ textarea {
 
 a {
   text-decoration: none;
+}
+
+@media only screen and (max-height: 800px) {
+  .container {
+    position: absolute;
+    top: 150px;
+    transform: translateX(-50%);
+  }
 }
