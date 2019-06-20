@@ -93,8 +93,9 @@ class ChangePasswordForm extends Component {
   }
   render() {
     return (
-      <div className="changepasswordForm">
-        <h1>Vaihda Salasana</h1>
+      <div>
+        <hr />
+        <h2>Vaihda Salasana</h2>
         <form onSubmit={this.handleSubmit}>
           <input
             type="password"
