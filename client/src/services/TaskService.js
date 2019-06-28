@@ -13,8 +13,7 @@ export default class TaskService {
         }
       };
       const res = await axios.get("/api/tasktypes", config);
-      const { data } = res;
-      return data;
+      return res;
     } catch (err) {
       if (err.response) {
         const errors = await err.response.data;

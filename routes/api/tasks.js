@@ -72,7 +72,9 @@ router.post(
       const { description, from, taskType, to, active } = req.body;
       if (to) {
         if (Date.parse(to) < Date.parse(from)) {
-          return res.status(400).json({ msg: "to date is > than from" });
+          return res
+            .status(400)
+            .json({ errors: [{ msg: "to date is > than from" }] });
         }
       }
       const newTask = new Task({

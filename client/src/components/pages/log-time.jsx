@@ -14,9 +14,9 @@ class LogTime extends Component {
       taskTypes: {},
       formData: {
         taskType: "",
-        fromDate: "",
+        from: undefined,
         active: false,
-        toDate: undefined,
+        to: undefined,
         description: ""
       },
       notification: {
@@ -34,16 +34,19 @@ class LogTime extends Component {
   async componentDidMount() {
     try {
       const types = await this.TaskService.getTaskTypes();
-      this.setState({ ...this.state, taskTypes: types });
+      console.log("types: ", types);
+      this.setState({ ...this.state, taskTypes: types.data });
     } catch (err) {
       console.log(err);
     }
   }
 
   onChangeTaskType(value) {
+    console.log(value);
+    let ids = value.map(a => a._id);
     this.setState({
       ...this.state,
-      formData: { ...this.state.formData, taskType: value }
+      formData: { ...this.state.formData, taskType: ids[0] }
     });
   }
 
@@ -57,7 +60,7 @@ class LogTime extends Component {
         console.log("tultiin");
         this.setState({
           ...this.state,
-          formData: { ...this.state.formData, toDate: "" }
+          formData: { ...this.state.formData, to: "" }
         });
       }
     } else {
@@ -83,14 +86,21 @@ class LogTime extends Component {
     e.preventDefault();
     try {
       let newTask = this.state.formData;
-      newTask.taskType = newTask.taskType._id;
-      newTask.from = newTask.fromDate;
-      newTask.to = newTask.toDate;
       if (newTask.active) {
         newTask.to = undefined;
       }
       console.log(newTask);
       const task = await this.TaskService.addNewTask(newTask);
+      if (task.status == 200) {
+        this.setState({
+          ...this.state,
+          notification: {
+            ...this.state.notification,
+            show: "true",
+            text: "Onnistui!"
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
       let message = "Virhe: ";
@@ -114,13 +124,13 @@ class LogTime extends Component {
       <div className="container log-time">
         <h1>Kirjaa aika</h1>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="fromDate">Alkuaika: </label> <br />
+          <label htmlFor="from">Alkuaika: </label> <br />
           <input
             type="datetime-local"
-            id="fromDate"
+            id="from"
             required
-            name="fromDate"
-            value={this.state.formData.fromDate}
+            name="from"
+            value={this.state.formData.from}
             onChange={this.handleChange}
           />
           <br />
@@ -133,11 +143,11 @@ class LogTime extends Component {
           />
           <label htmlFor="checkbox">Aktiivinen </label>
           <br />
-          <label htmlFor="toDate">Loppuaika: </label> <br />
+          <label htmlFor="to">Loppuaika: </label> <br />
           <input
             type="datetime-local"
-            id="toDate"
-            name="toDate"
+            id="to"
+            name="to"
             disabled={this.state.formData.active}
             required={!this.state.formData.active}
             onChange={this.handleChange}
@@ -148,7 +158,7 @@ class LogTime extends Component {
             options={this.state.taskTypes}
             labelField="name"
             valueField="_id"
-            onChange={value => this.onChangeTaskType(value[0])}
+            //onChange={value => this.onChangeTaskType(value)}
           />
           <textarea
             type="text"
