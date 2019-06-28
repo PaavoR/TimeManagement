@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Select from "react-dropdown-select";
 
 import "../../styles/log-time.scss";
-import "../../services/TaskService";
+
 import Notification from "../notification";
 
 import TaskService from "../../services/TaskService";
@@ -16,17 +16,19 @@ class LogTime extends Component {
         taskType: "",
         fromDate: "",
         active: false,
-        toDate: "",
+        toDate: undefined,
         description: ""
       },
       notification: {
-        text: "Test",
-        show: "true"
+        text: "",
+        show: "false"
       }
     };
     this.TaskService = new TaskService();
     this.onChangeTaskType = this.onChangeTaskType.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.hideNotification = this.hideNotification.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -66,12 +68,52 @@ class LogTime extends Component {
       formData: { ...this.state.formData, [name]: value }
     });
   }
+  hideNotification() {
+    this.setState({
+      ...this.state,
+      notification: {
+        ...this.state.notification,
+        show: "false",
+        text: ""
+      }
+    });
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault();
+    try {
+      let newTask = this.state.formData;
+      newTask.taskType = newTask.taskType._id;
+      newTask.from = newTask.fromDate;
+      newTask.to = newTask.toDate;
+      if (newTask.active) {
+        newTask.to = undefined;
+      }
+      console.log(newTask);
+      const task = await this.TaskService.addNewTask(newTask);
+    } catch (error) {
+      console.log(error);
+      let message = "Virhe: ";
+      if (error.errors) {
+        error.errors.map(err => (message += err.msg));
+      }
+      this.setState({
+        ...this.state,
+        notification: {
+          ...this.state.notification,
+          show: "true",
+          text: message
+        }
+      });
+      setTimeout(this.hideNotification, 4000);
+    }
+  }
 
   render() {
     return (
       <div className="container log-time">
         <h1>Kirjaa aika</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="fromDate">Alkuaika: </label> <br />
           <input
             type="datetime-local"
