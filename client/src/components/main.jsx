@@ -17,6 +17,7 @@ import Time from "./pages/time";
 import LogTime from "./pages/log-time";
 import Results from "./pages/results";
 import Profile from "./pages/profile";
+import TakeTime from "./pages/take-time";
 
 import NotFound from "./notFound";
 import Navbar from "./navbar";
@@ -76,6 +77,7 @@ class Main extends Component {
               <Route path="/time" component={Time} />
               <Route path="/log-time" component={LogTime} />
               <Route path="/results" component={Results} />
+              <Route path="/take-time" component={TakeTime} />
               <Route
                 path="/profile"
                 component={() => (

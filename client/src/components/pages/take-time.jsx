@@ -1,38 +1,32 @@
 import React, { Component } from "react";
 import Select from "react-dropdown-select";
-
-import "../../styles/log-time.scss";
-
 import Notification from "../notification";
-
 import TaskService from "../../services/TaskService";
 
-class LogTime extends Component {
+class TakeTime extends Component {
   constructor(props) {
     super(props);
     this.state = {
       taskTypes: {},
       formData: {
+        from: new Date(Date.now()),
         taskType: "",
-        from: undefined,
-        active: false,
-        to: undefined,
+        active: true,
         description: ""
       },
       notification: {
         text: "",
         show: "false",
-        type: "success"
+        type: "fail"
       }
     };
     this.TaskService = new TaskService();
     this.onChangeTaskType = this.onChangeTaskType.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.hideNotification = this.hideNotification.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.hideNotification = this.hideNotification.bind(this);
     this.clearForm = this.clearForm.bind(this);
   }
-
   async componentDidMount() {
     try {
       const types = await this.TaskService.getTaskTypes();
@@ -42,7 +36,6 @@ class LogTime extends Component {
       console.log(err);
     }
   }
-
   onChangeTaskType(value) {
     console.log(value);
     let ids = value.map(a => a._id);
@@ -55,32 +48,10 @@ class LogTime extends Component {
   handleChange(e) {
     const target = e.target;
     const name = target.name;
-    let value = 0;
-    if (target.type === "checkbox") {
-      value = target.checked;
-      if (value) {
-        console.log("tultiin");
-        this.setState({
-          ...this.state,
-          formData: { ...this.state.formData, to: "" }
-        });
-      }
-    } else {
-      value = target.value;
-    }
+    const value = target.value;
     this.setState({
       ...this.state,
       formData: { ...this.state.formData, [name]: value }
-    });
-  }
-  hideNotification() {
-    this.setState({
-      ...this.state,
-      notification: {
-        ...this.state.notification,
-        show: "false",
-        text: ""
-      }
     });
   }
 
@@ -88,9 +59,6 @@ class LogTime extends Component {
     e.preventDefault();
     try {
       let newTask = this.state.formData;
-      if (newTask.active) {
-        newTask.to = undefined;
-      }
       console.log(newTask);
       const task = await this.TaskService.addNewTask(newTask);
       if (task.status == 200) {
@@ -124,44 +92,26 @@ class LogTime extends Component {
       setTimeout(this.hideNotification, 4000);
     }
   }
+  hideNotification() {
+    this.setState({
+      ...this.state,
+      notification: {
+        ...this.state.notification,
+        show: "false",
+        text: ""
+      }
+    });
+  }
+
   clearForm() {
     document.getElementById("form").reset();
   }
 
   render() {
     return (
-      <div className="container log-time">
-        <h1>Kirjaa aika</h1>
+      <div className="container take-time">
+        <h1>Aloita ajanotto</h1>
         <form onSubmit={this.handleSubmit} id="form">
-          <label htmlFor="from">Alkuaika: </label> <br />
-          <input
-            type="datetime-local"
-            id="from"
-            required
-            name="from"
-            value={this.state.formData.from}
-            onChange={this.handleChange}
-          />
-          <br />
-          <input
-            type="checkbox"
-            name="active"
-            checked={this.state.formData.active}
-            onChange={this.handleChange}
-            id="checkbox"
-          />
-          <label htmlFor="checkbox">Aktiivinen </label>
-          <br />
-          <label htmlFor="to">Loppuaika: </label> <br />
-          <input
-            type="datetime-local"
-            id="to"
-            name="to"
-            disabled={this.state.formData.active}
-            required={!this.state.formData.active}
-            onChange={this.handleChange}
-          />{" "}
-          <br />
           <Select
             name="taskType"
             options={this.state.taskTypes}
@@ -187,4 +137,4 @@ class LogTime extends Component {
   }
 }
 
-export default LogTime;
+export default TakeTime;

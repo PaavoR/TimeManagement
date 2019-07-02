@@ -58,8 +58,7 @@ export default class TaskService {
       const body = JSON.stringify(taskData);
       console.log(body);
       const res = await axios.post("/api/tasks", body, config);
-      const { data } = await res;
-      return data;
+      return res;
     } catch (err) {
       if (err.response) {
         const errors = await err.response.data;
