@@ -94,6 +94,39 @@ router.post(
   }
 );
 
+// @route   GET api/tasks/bydate
+// @desc    Get a tasks between dates
+// @access  private
+router.get(
+  "/bydate",
+  [
+    auth,
+    check("from", "Please include valid from Date").custom(value => {
+      return isDate(value);
+    }),
+    check("to", "Please include valid to Date").custom(value => {
+      return isDate(value);
+    })
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const { from, to } = req.body;
+      if (from > to) {
+        return res.status(400).json({ msg: "from date is > than to" });
+      }
+      const tasks = await Task.find({ from: { $gte: from, $lt: to } });
+      return res.status(200).json(tasks);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+  }
+);
+
 // @route   GET api/tasks/:id
 // @desc    Get a task
 // @access  private
