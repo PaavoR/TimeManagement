@@ -16,7 +16,7 @@ export default class UserService {
       };
       const res = await axios.get("/api/user/", config);
       const { data } = res;
-      console.log(res);
+
       return data;
     } catch (err) {
       if (err.response) {

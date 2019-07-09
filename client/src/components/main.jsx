@@ -21,6 +21,7 @@ import TakeTime from "./pages/take-time";
 
 import NotFound from "./notFound";
 import Navbar from "./navbar";
+import UserService from "../services/UserService";
 
 class Main extends Component {
   constructor(props) {
@@ -31,12 +32,18 @@ class Main extends Component {
       redirectTarget: "",
       loggedIn: false
     };
+    this.UserService = new UserService();
   }
 
-  componentDidMount() {
-    const loggedIn = getFromStorage("token");
-    if (loggedIn) {
-      this.setState({ loggedIn: true });
+  async componentDidMount() {
+    try {
+      const userData = await this.UserService.getUserData();
+      console.log(userData._id);
+      if (userData) {
+        this.setState({ loggedIn: true });
+      }
+    } catch (err) {
+      this.setState({ loggedIn: false });
     }
   }
 
