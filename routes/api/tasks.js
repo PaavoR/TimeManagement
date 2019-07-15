@@ -231,15 +231,21 @@ router.put(
       }
       if (to && from) {
         if (Date.parse(to) < Date.parse(from)) {
-          return res.status(400).json({ msg: "to date is > than from" });
+          return res
+            .status(400)
+            .json({ errors: [{ msg: "to date is > than from" }] });
         }
       } else if (to && oldValues.from) {
         if (Date.parse(to) < Date.parse(oldValues.from)) {
-          return res.status(400).json({ msg: "to date is > than from" });
+          return res
+            .status(400)
+            .json({ errors: [{ msg: "to date is > than from" }] });
         }
       } else if (from && oldValues.to) {
         if (Date.parse(oldValues.to) < Date.parse(from)) {
-          return res.status(400).json({ msg: "to date is > than from" });
+          return res
+            .status(400)
+            .json({ errors: [{ msg: "to date is > than from" }] });
         }
       }
       if (description) oldValues.description = description;
