@@ -50,7 +50,7 @@ class Results extends Component {
           <TabPanel>
             <h2>Avoimet tehtävät</h2>
             {this.state.results
-              .filter(res => res.active === true)
+              .filter(res => res.active == true)
               .map((value, index) => {
                 return (
                   <Task
