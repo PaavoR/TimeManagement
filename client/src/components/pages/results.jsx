@@ -82,6 +82,7 @@ class Results extends Component {
               </TabPanel>
               <TabPanel>
                 <p>Koko historia tänne</p>
+                <ResultTab from={0} />
               </TabPanel>
             </Tabs>
           </TabPanel>
