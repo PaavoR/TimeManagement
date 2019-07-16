@@ -21,65 +21,47 @@ var isDate = function(date) {
 // @route   GET api/tasks
 // @desc    Get all users tasks
 // @access  private
-router.get(
-  "/",
-  [
-    auth,
-    check("from", "Please include valid from Date")
-      .custom(value => {
-        return isDate(value);
-      })
-      .optional(),
-    check("to", "Please include valid to Date")
-      .custom(value => {
-        return isDate(value);
-      })
-      .optional()
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    try {
-      const { from, to } = req.body;
+router.get("/", auth, async (req, res) => {
+  try {
+    const { from, to } = req.query;
+    console.log(from);
+    console.log(to);
 
-      const userId = req.user.id;
-      if (from && to) {
-        const fromDate = new Date(from);
-        const toDate = new Date(to);
-        if (from > to) {
-          return res.status(400).json({ msg: "from date is > than to" });
-        }
-        const tasks = await Task.find({
-          from: { $gte: fromDate, $lt: toDate },
-          user: userId
-        }).populate("taskType");
-        return res.status(200).json(tasks);
-      } else if (from) {
-        const fromDate = new Date(from);
-        const tasks = await Task.find({
-          from: { $gte: fromDate },
-          user: userId
-        }).populate("taskType");
-        return res.status(200).json(tasks);
-      } else if (to) {
-        const toDate = new Date(to);
-        const tasks = await Task.find({
-          from: { $lt: toDate },
-          user: userId
-        }).populate("taskType");
-        return res.status(200).json(tasks);
-      } else {
-        const tasks = await Task.find({ user: userId }).populate("taskType");
-        return res.status(200).json(tasks);
+    const userId = req.user.id;
+    if (from && to) {
+      const fromDate = new Date(from);
+      const toDate = new Date(to);
+      if (from > to) {
+        return res.status(400).json({ msg: "from date is > than to" });
       }
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
+      const tasks = await Task.find({
+        from: { $gte: fromDate, $lt: toDate },
+        user: userId
+      }).populate("taskType");
+      return res.status(200).json(tasks);
+    } else if (from) {
+      const fromDate = new Date(from);
+      const tasks = await Task.find({
+        from: { $gte: fromDate },
+        user: userId
+      }).populate("taskType");
+      return res.status(200).json(tasks);
+    } else if (to) {
+      const toDate = new Date(to);
+      const tasks = await Task.find({
+        from: { $lt: toDate },
+        user: userId
+      }).populate("taskType");
+      return res.status(200).json(tasks);
+    } else {
+      const tasks = await Task.find({ user: userId }).populate("taskType");
+      return res.status(200).json(tasks);
     }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
-);
+});
 
 // @route   POST api/tasks
 // @desc    Add new task

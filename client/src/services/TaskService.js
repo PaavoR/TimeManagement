@@ -46,6 +46,29 @@ export default class TaskService {
     }
   }
 
+  async getUserTasks(params) {
+    try {
+      const token = getFromStorage("token");
+      const config = {
+        headers: {
+          "x-auth-token": token
+        },
+        params: params
+      };
+      const res = await axios.get("/api/tasks", config);
+      const { data } = res;
+      return data;
+    } catch (err) {
+      if (err.response) {
+        const errors = await err.response.data;
+        console.log(errors);
+        throw errors;
+      } else {
+        throw err;
+      }
+    }
+  }
+
   async addNewTask(taskData) {
     try {
       const token = getFromStorage("token");
