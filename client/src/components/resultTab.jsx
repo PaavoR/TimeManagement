@@ -36,6 +36,13 @@ class ResultTab extends Component {
 
   render() {
     let chartData = [];
+    let chartData2 = [];
+    chartData2.push([
+      { type: "string", id: "TaskType" },
+      { type: "string", id: "TaskDesc" },
+      { type: "date", id: "Start" },
+      { type: "date", id: "End" }
+    ]);
     chartData.push(["Task", "Hours"]);
     const taskTypes = this.state.taskTypes;
     const tasks = this.state.tasks;
@@ -44,21 +51,41 @@ class ResultTab extends Component {
       const taskType = task.taskType.name;
       const idx = chartData.findIndex(Type => Type[0] == taskType);
       chartData[idx][1] += durationInMinutes(task.from, task.to);
+      // chartdata2
+      chartData2.push([
+        task.taskType.name,
+        task.description,
+        new Date(task.from),
+        new Date(task.to)
+      ]);
     });
 
     return (
       <div>
-        <Chart
-          width={"500px"}
-          height={"300px"}
-          chartType="PieChart"
-          loader={<div>Loading Chart</div>}
-          data={chartData}
-          options={{
-            title: "Tulosten jakauma minuuteissa"
-          }}
-          rootProps={{ "data-testid": "1" }}
-        />
+        {this.state.tasks.length != 0 && (
+          <div>
+            <Chart
+              width={"500px"}
+              height={"300px"}
+              chartType="PieChart"
+              loader={<div>Loading Chart</div>}
+              data={chartData}
+              options={{
+                title: "Tulosten jakauma minuuteissa"
+              }}
+              rootProps={{ "data-testid": "1" }}
+            />
+            <Chart
+              width={"100%"}
+              height={"200px"}
+              chartType="Timeline"
+              loader={<div>Loading Chart</div>}
+              data={chartData2}
+              rootProps={{ "data-testid": "3" }}
+            />
+          </div>
+        )}
+
         <p>{dateFormat(this.props.from)} jälkeen olleet:</p>
         {this.state.tasks.map((value, index) => {
           return (
