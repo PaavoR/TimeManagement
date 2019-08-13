@@ -95,6 +95,7 @@ class ResultTab extends Component {
               from={value.from}
               to={value.to}
               description={value.description}
+              taskType={value.taskType._id}
             />
           );
         })}

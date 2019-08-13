@@ -116,4 +116,20 @@ export default class TaskService {
       }
     }
   }
+
+  async deleteTask(taskId) {
+    try {
+      const token = getFromStorage("token");
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token
+        }
+      };
+      const res = await axios.delete("/api/tasks/" + taskId, config);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }

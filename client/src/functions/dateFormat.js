@@ -9,7 +9,9 @@ export function dateFormat(aika) {
     "lauantai"
   ];
   var aika = new Date(aika);
+
   var vko_paiva = aika.getDay();
+  if (!vko_paiva) return false;
   var paiva = aika.getDate();
   var kuukausi = aika.getMonth() + 1;
   var vuosi = aika.getFullYear();
