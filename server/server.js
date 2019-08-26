@@ -17,7 +17,7 @@ app.use("/api/user", require("./routes/api/user"));
 app.use("/api/tasks", require("./routes/api/tasks"));
 app.use("/api/tasktypes", require("./routes/api/tasktypes"));
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.APP_SERVER_PORT || 5001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
