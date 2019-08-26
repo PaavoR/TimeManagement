@@ -61,4 +61,4 @@ typings/
 .next
 
 # default.json
-config/default.json
+server/config/default.json
