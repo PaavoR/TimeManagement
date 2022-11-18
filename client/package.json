@@ -15,7 +15,7 @@
     "react-dropdown-select": "^3.0.0",
     "react-google-charts": "^3.0.14",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "react-tabs": "^3.0.0",
     "typeface-open-sans": "0.0.54"
   },
